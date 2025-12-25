@@ -419,8 +419,8 @@ body {
 }
 
 .location-map-container {
-    width: 100%;
-    max-width: 500px;
+    width: 80%;
+    max-width: 300px;
     margin: 0 auto;
     border-radius: 8px;
     overflow: hidden;
@@ -447,7 +447,8 @@ body {
     }
 
     .location-map-container {
-        max-width: 600px;
+        width: 100%;
+        max-width: 500px;
     }
 }
 
