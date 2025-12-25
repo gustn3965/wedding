@@ -19,8 +19,17 @@
 
     // Initialize
     function init() {
-        // Get image sources directly from HTML
-        galleryImages = Array.from(galleryItems).map(item => item.querySelector('img').src);
+        // Get original image sources from data-original attribute
+        galleryImages = Array.from(galleryItems).map(item => {
+            const original = item.dataset.original;
+            if (original) {
+                // Convert relative path to absolute URL
+                const a = document.createElement('a');
+                a.href = original;
+                return a.href;
+            }
+            return item.querySelector('img').src;
+        });
         totalCountEl.textContent = galleryImages.length;
 
         // Gallery item click events
@@ -149,9 +158,9 @@
 
         // Random properties
         const startX = Math.random() * 100;
-        const size = Math.random() * 10 + 10;
-        const duration = Math.random() * 3 + 4;
-        const delay = Math.random() * 5;
+        const size = Math.random() * 8 + 8; // 8-16px
+        const duration = Math.random() * 4 + 6; // 6-10s (slower)
+        const delay = Math.random() * 0.5; // small delay variation
 
         petal.style.left = startX + 'vw';
         petal.style.width = size + 'px';
@@ -164,20 +173,15 @@
         // Remove petal after animation
         setTimeout(() => {
             petal.remove();
-        }, (duration + delay) * 1000);
+        }, (duration + delay) * 1000 + 100);
     }
 
     function startPetalAnimation() {
         const container = createPetalsContainer();
 
-        // Create initial burst of petals
-        for (let i = 0; i < 30; i++) {
-            createPetal(container);
-        }
-
-        // Continue creating petals periodically
+        // Gradually create petals (no initial burst)
         let petalCount = 0;
-        const maxPetals = 50;
+        const maxPetals = 40;
 
         const interval = setInterval(() => {
             if (petalCount >= maxPetals) {
@@ -185,12 +189,14 @@
                 // Remove container after all petals are done
                 setTimeout(() => {
                     container.remove();
-                }, 10000);
+                }, 12000);
                 return;
             }
+            // Create 1-2 petals at a time
             createPetal(container);
+            if (Math.random() > 0.5) createPetal(container);
             petalCount++;
-        }, 300);
+        }, 400);
     }
 
     // Start petals when page loads
