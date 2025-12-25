@@ -5,6 +5,86 @@
     box-sizing: border-box;
 }
 
+/* Curtain Intro */
+.curtain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    pointer-events: none;
+}
+
+.curtain {
+    width: 50%;
+    height: 100%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.9) 0px,
+            rgba(245, 245, 245, 0.85) 15px,
+            rgba(255, 255, 255, 0.9) 30px,
+            rgba(240, 240, 240, 0.85) 45px,
+            rgba(255, 255, 255, 0.9) 60px
+        );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+}
+
+.curtain::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 28px,
+            rgba(200, 200, 200, 0.12) 29px,
+            rgba(200, 200, 200, 0.12) 31px,
+            transparent 32px,
+            transparent 60px
+        );
+}
+
+.curtain-left {
+    box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.05);
+    animation: curtainLeft 1.8s ease-in-out 0.8s forwards;
+}
+
+.curtain-right {
+    box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.05);
+    animation: curtainRight 1.8s ease-in-out 0.8s forwards;
+}
+
+@keyframes curtainLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes curtainRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.curtain-overlay.hidden {
+    display: none;
+}
+
 html {
     scroll-behavior: smooth;
 }

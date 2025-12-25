@@ -1,3 +1,13 @@
+// Curtain Intro
+document.addEventListener('DOMContentLoaded', function() {
+    const curtain = document.getElementById('curtainOverlay');
+    if (curtain) {
+        setTimeout(() => {
+            curtain.classList.add('hidden');
+        }, 2200);
+    }
+});
+
 // Copy Address
 function copyAddress() {
     const address = '경기 수원시 권선구 세화로 116 2층';
