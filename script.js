@@ -296,12 +296,23 @@ END:VCALENDAR`;
     }
 
     // Touch start handler
+    let isSingleTouch = false;
+
     function handleTouchStart(e) {
-        touchStartX = e.touches[0].clientX;
+        // Only track single touch for swipe
+        if (e.touches.length === 1) {
+            isSingleTouch = true;
+            touchStartX = e.touches[0].clientX;
+        } else {
+            isSingleTouch = false;
+        }
     }
 
     // Touch end handler
     function handleTouchEnd(e) {
+        // Only handle swipe if it was a single touch
+        if (!isSingleTouch) return;
+
         touchEndX = e.changedTouches[0].clientX;
 
         const diffX = touchStartX - touchEndX;
