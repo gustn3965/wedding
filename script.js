@@ -167,24 +167,33 @@ function deleteGuestbook(id) {
 
     fetch(GUESTBOOK_API, {
         method: 'POST',
+        redirect: 'follow',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain',
         },
         body: JSON.stringify({ action: 'delete', id, password: password.trim() })
     })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert('삭제되었습니다.');
-            loadGuestbook();
-        } else if (data.error === 'wrong_password') {
-            alert('비밀번호가 일치하지 않습니다.');
-        } else {
-            alert('삭제에 실패했습니다.');
+    .then(res => res.text())
+    .then(text => {
+        console.log('Response:', text);
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                alert('삭제되었습니다.');
+                loadGuestbook();
+            } else if (data.error === 'wrong_password') {
+                alert('비밀번호가 일치하지 않습니다.');
+            } else {
+                alert('삭제 실패: ' + (data.error || 'unknown'));
+            }
+        } catch (e) {
+            console.error('Parse error:', e, text);
+            alert('응답 파싱 실패');
         }
     })
     .catch(err => {
-        alert('삭제에 실패했습니다. 다시 시도해주세요.');
+        console.error('Fetch error:', err);
+        alert('삭제 요청 실패: ' + err.message);
     });
 }
 
