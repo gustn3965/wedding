@@ -42,7 +42,7 @@ function toggleAccordion(button) {
 }
 
 // Guestbook
-const GUESTBOOK_API = 'https://script.google.com/macros/s/AKfycbyLDREmk9Y0fIzvPA5ITLYWdZ-Tc5ROuZsfA9ON1VHLC-12KBblrLvLXr0lUGklMsh19A/exec';
+const GUESTBOOK_API = 'https://script.google.com/macros/s/AKfycbwHw51HDXV_RUrVonLZCs5nGpuysU26yG4p_es1bBW8Mp2mNfgqT79bTrVpD5U757C-Yg/exec';
 const ITEMS_PER_PAGE = 5;
 let allGuestbookData = [];
 let currentPage = 1;
