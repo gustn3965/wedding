@@ -1,3 +1,17 @@
+// Copy Address
+function copyAddress() {
+    const address = '경기 수원시 권선구 세화로 116 2층';
+    navigator.clipboard.writeText(address).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.classList.remove('show');
+        void toast.offsetWidth; // trigger reflow
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    });
+}
+
 // Photo Viewer
 (function() {
     'use strict';

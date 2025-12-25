@@ -113,7 +113,9 @@
             <h2 class="location-title">오시는 길</h2>
             <div class="location-info">
                 <p class="location-name">수원 메리빌리아</p>
-                <p class="location-address">경기도 수원시 (상세 주소)</p>
+                <p class="location-address" id="addressText" onclick="copyAddress()">경기 수원시 권선구 세화로 116 2층</p>
+                <button class="copy-btn" onclick="copyAddress()">주소 복사</button>
+                <span class="copy-toast" id="copyToast">복사되었습니다!</span>
             </div>
             <div class="location-map-container">
                 <img src="images/location/location1.jpeg" alt="약도" class="location-map">
