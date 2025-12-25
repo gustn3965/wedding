@@ -19,11 +19,9 @@
 - 계좌번호 복사
 - 방명록 (Google Sheets 연동)
 
-## 기술 스택
+## Made with
 
-- HTML / CSS / JavaScript
-- Google Apps Script
-- GitHub Pages
+**Claude Code (Anthropic Claude AI)** 로 제작되었습니다.
 
 ## 배포
 
