@@ -217,7 +217,7 @@ DTSTART:20260509T133000
 DTEND:20260509T153000
 SUMMARY:박현수 ♥ 신하정 결혼식
 DESCRIPTION:박현수 ♥ 신하정 결혼식에 초대합니다.
-LOCATION:수원 메리빌리아, 경기 수원시 권선구 세화로 116 2층
+LOCATION:수원 메리빌리아 가든홀, 경기 수원시 권선구 세화로 116 2층
 END:VEVENT
 END:VCALENDAR`;
 
