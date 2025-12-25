@@ -4,12 +4,26 @@
 
     // Gallery images array
     const galleryImages = [
-        'images/gallery/photo1.jpg',
-        'images/gallery/photo2.jpg',
-        'images/gallery/photo3.jpg',
-        'images/gallery/photo4.jpg',
-        'images/gallery/photo5.jpg',
-        'images/gallery/photo6.jpg'
+        'images/sources/KJJ03185.jpg',
+        'images/sources/KJJ03656.jpg',
+        'images/sources/KJJ04688.jpg',
+        'images/sources/KJJ04730.jpg',
+        'images/sources/KJJ04962.jpg',
+        'images/sources/KJJ05008.jpg',
+        'images/sources/KJJ05070.jpg',
+        'images/sources/KJJ05195.jpg',
+        'images/sources/KJJ05226.jpg',
+        'images/sources/KJJ05263.jpg',
+        'images/sources/KJJ05385.jpg',
+        'images/sources/KJJ05569.jpg',
+        'images/sources/KJJ05665.jpg',
+        'images/sources/SON08265.jpg',
+        'images/sources/SON08333.jpg',
+        'images/sources/SON08494.jpg',
+        'images/sources/SON08674.jpg',
+        'images/sources/SON08723.jpg',
+        'images/sources/SON08731.jpg',
+        'images/sources/SON08783.jpg'
     ];
 
     let currentIndex = 0;
