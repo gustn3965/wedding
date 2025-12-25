@@ -219,9 +219,8 @@ END:VCALENDAR`;
         // Keyboard navigation
         document.addEventListener('keydown', handleKeydown);
 
-        // Touch events
+        // Touch events for horizontal swipe
         viewerContent.addEventListener('touchstart', handleTouchStart, { passive: true });
-        viewerContent.addEventListener('touchmove', handleTouchMove, { passive: false });
         viewerContent.addEventListener('touchend', handleTouchEnd);
 
         // Image load event
@@ -299,52 +298,16 @@ END:VCALENDAR`;
     // Touch start handler
     function handleTouchStart(e) {
         touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isDragging = true;
-        viewerImage.classList.add('dragging');
-    }
-
-    // Touch move handler
-    function handleTouchMove(e) {
-        if (!isDragging) return;
-
-        const currentY = e.touches[0].clientY;
-        const diffY = currentY - touchStartY;
-
-        // Only allow downward drag
-        if (diffY > 0) {
-            e.preventDefault();
-            currentTranslateY = diffY;
-            viewerImage.style.transform = `translateY(${diffY}px)`;
-            photoViewer.style.backgroundColor = `rgba(0, 0, 0, ${Math.max(0.3, 0.95 - diffY / 500)})`;
-        }
     }
 
     // Touch end handler
     function handleTouchEnd(e) {
-        isDragging = false;
-        viewerImage.classList.remove('dragging');
-
         touchEndX = e.changedTouches[0].clientX;
-        touchEndY = e.changedTouches[0].clientY;
 
         const diffX = touchStartX - touchEndX;
-        const diffY = touchEndY - touchStartY;
-
-        // Swipe down to close
-        if (diffY > 100 && Math.abs(diffX) < 50) {
-            closeViewer();
-            photoViewer.style.backgroundColor = '';
-            return;
-        }
-
-        // Reset position if not closing
-        viewerImage.style.transform = '';
-        photoViewer.style.backgroundColor = '';
-
-        // Horizontal swipe for navigation
         const swipeThreshold = 50;
-        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffY) < 100) {
+
+        if (Math.abs(diffX) > swipeThreshold) {
             if (diffX > 0) {
                 navigateImage('next');
             } else {
