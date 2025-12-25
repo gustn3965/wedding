@@ -25,6 +25,126 @@ function copyAccount(account) {
     });
 }
 
+// Guestbook
+const GUESTBOOK_API = 'https://script.google.com/macros/s/AKfycbx288KVdWPpllExx5FhOZwIYHEmyhQGuaWI7CPw01UhUnZOPVHIYZeMpZK33Jrp3KMGQQ/exec';
+const ITEMS_PER_PAGE = 5;
+let allGuestbookData = [];
+let currentPage = 1;
+
+// Load guestbook entries
+function loadGuestbook() {
+    const listEl = document.getElementById('guestbookList');
+    listEl.innerHTML = '<p class="guestbook-loading">메시지를 불러오는 중...</p>';
+
+    fetch(GUESTBOOK_API)
+        .then(res => res.json())
+        .then(data => {
+            allGuestbookData = data;
+            currentPage = 1;
+            renderGuestbook();
+        })
+        .catch(err => {
+            listEl.innerHTML = '<p class="guestbook-empty">메시지를 불러오지 못했습니다.</p>';
+        });
+}
+
+// Render guestbook with pagination
+function renderGuestbook() {
+    const listEl = document.getElementById('guestbookList');
+
+    if (allGuestbookData.length === 0) {
+        listEl.innerHTML = '<p class="guestbook-empty">아직 메시지가 없습니다. 첫 번째로 축하 메시지를 남겨주세요!</p>';
+        return;
+    }
+
+    const totalPages = Math.ceil(allGuestbookData.length / ITEMS_PER_PAGE);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const pageData = allGuestbookData.slice(startIndex, endIndex);
+
+    let html = pageData.map(item => `
+        <div class="guestbook-item">
+            <div class="guestbook-item-header">
+                <span class="guestbook-item-name">${escapeHtml(item.name)}</span>
+                <span class="guestbook-item-date">${escapeHtml(item.date)}</span>
+            </div>
+            <p class="guestbook-item-message">${escapeHtml(item.message)}</p>
+        </div>
+    `).join('');
+
+    // Pagination UI
+    if (totalPages > 1) {
+        html += '<div class="guestbook-pagination">';
+        html += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>이전</button>`;
+        html += `<span class="page-info">${currentPage} / ${totalPages}</span>`;
+        html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>다음</button>`;
+        html += '</div>';
+    }
+
+    listEl.innerHTML = html;
+}
+
+// Change page
+function changePage(page) {
+    const totalPages = Math.ceil(allGuestbookData.length / ITEMS_PER_PAGE);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderGuestbook();
+
+    // Scroll to guestbook section
+    document.querySelector('.section-guestbook').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Submit guestbook entry
+function submitGuestbook() {
+    const nameEl = document.getElementById('guestName');
+    const messageEl = document.getElementById('guestMessage');
+    const submitBtn = document.querySelector('.guestbook-submit');
+
+    const name = nameEl.value.trim();
+    const message = messageEl.value.trim();
+
+    if (!name || !message) {
+        alert('이름과 메시지를 모두 입력해주세요.');
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '등록 중...';
+
+    fetch(GUESTBOOK_API, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, message })
+    })
+    .then(() => {
+        nameEl.value = '';
+        messageEl.value = '';
+        alert('메시지가 등록되었습니다!');
+        loadGuestbook();
+    })
+    .catch(err => {
+        alert('등록에 실패했습니다. 다시 시도해주세요.');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '등록하기';
+    });
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Load guestbook on page load
+document.addEventListener('DOMContentLoaded', loadGuestbook);
+
 // Download ICS for Apple Calendar
 function downloadICS() {
     const icsContent = `BEGIN:VCALENDAR
@@ -288,6 +408,16 @@ END:VCALENDAR`;
             card.classList.add('fade-in');
             card.style.transitionDelay = (index * 0.2) + 's';
         });
+
+        const guestbookTitle = document.querySelector('.guestbook-title');
+        const guestbookSubtitle = document.querySelector('.guestbook-subtitle');
+        const guestbookForm = document.querySelector('.guestbook-form');
+        const guestbookList = document.querySelector('.guestbook-list');
+
+        if (guestbookTitle) guestbookTitle.classList.add('fade-in');
+        if (guestbookSubtitle) guestbookSubtitle.classList.add('fade-in');
+        if (guestbookForm) guestbookForm.classList.add('fade-in');
+        if (guestbookList) guestbookList.classList.add('fade-in');
 
         galleryItems.forEach((item, index) => {
             item.classList.add('scale-in');
