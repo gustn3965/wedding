@@ -131,3 +131,122 @@
         init();
     }
 })();
+
+// Petal Animation
+(function() {
+    'use strict';
+
+    function createPetalsContainer() {
+        const container = document.createElement('div');
+        container.className = 'petals-container';
+        document.body.appendChild(container);
+        return container;
+    }
+
+    function createPetal(container) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+
+        // Random properties
+        const startX = Math.random() * 100;
+        const size = Math.random() * 10 + 10;
+        const duration = Math.random() * 3 + 4;
+        const delay = Math.random() * 5;
+
+        petal.style.left = startX + 'vw';
+        petal.style.width = size + 'px';
+        petal.style.height = size + 'px';
+        petal.style.animationDuration = duration + 's';
+        petal.style.animationDelay = delay + 's';
+
+        container.appendChild(petal);
+
+        // Remove petal after animation
+        setTimeout(() => {
+            petal.remove();
+        }, (duration + delay) * 1000);
+    }
+
+    function startPetalAnimation() {
+        const container = createPetalsContainer();
+
+        // Create initial burst of petals
+        for (let i = 0; i < 30; i++) {
+            createPetal(container);
+        }
+
+        // Continue creating petals periodically
+        let petalCount = 0;
+        const maxPetals = 50;
+
+        const interval = setInterval(() => {
+            if (petalCount >= maxPetals) {
+                clearInterval(interval);
+                // Remove container after all petals are done
+                setTimeout(() => {
+                    container.remove();
+                }, 10000);
+                return;
+            }
+            createPetal(container);
+            petalCount++;
+        }, 300);
+    }
+
+    // Start petals when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startPetalAnimation);
+    } else {
+        startPetalAnimation();
+    }
+})();
+
+// Scroll Animation
+(function() {
+    'use strict';
+
+    function initScrollAnimations() {
+        // Add animation classes to elements
+        const storyImage = document.querySelector('.story-image-container');
+        const storyText = document.querySelector('.story-text');
+        const galleryTitle = document.querySelector('.gallery-title');
+        const gallerySubtitle = document.querySelector('.gallery-subtitle');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        if (storyImage) storyImage.classList.add('fade-in-left');
+        if (storyText) storyText.classList.add('fade-in-right');
+        if (galleryTitle) galleryTitle.classList.add('fade-in');
+        if (gallerySubtitle) gallerySubtitle.classList.add('fade-in');
+
+        galleryItems.forEach((item, index) => {
+            item.classList.add('scale-in');
+            item.style.setProperty('--delay', index);
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollAnimations);
+    } else {
+        initScrollAnimations();
+    }
+})();
