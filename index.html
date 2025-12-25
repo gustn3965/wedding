@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>우리 결혼합니다</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 메인 페이지 -->
+    <main class="main-container">
+        <!-- 첫번째 섹션: 메인 웨딩 사진 -->
+        <section class="section section-hero">
+            <div class="hero-image-container">
+                <img src="images/main.jpg" alt="웨딩 메인 사진" class="hero-image">
+            </div>
+            <div class="hero-text">
+                <p class="wedding-date">2025. 00. 00 SAT PM 0:00</p>
+                <h1 class="couple-names">신랑이름 & 신부이름</h1>
+                <p class="venue">예식장 이름</p>
+            </div>
+            <div class="scroll-indicator">
+                <span></span>
+            </div>
+        </section>
+
+        <!-- 두번째 섹션: 이미지 -->
+        <section class="section section-story">
+            <div class="story-image-container">
+                <img src="images/story.jpg" alt="스토리 이미지" class="story-image">
+            </div>
+            <div class="story-text">
+                <h2>우리의 이야기</h2>
+                <p>
+                    서로 다른 길을 걷던 두 사람이<br>
+                    하나의 길을 함께 걷게 되었습니다.<br><br>
+                    여러분을 소중한 자리에 초대합니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 세번째 섹션: 사진 컬렉션 -->
+        <section class="section section-gallery">
+            <h2 class="gallery-title">갤러리</h2>
+            <p class="gallery-subtitle">사진을 클릭하시면 크게 보실 수 있습니다</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-index="0">
+                    <img src="images/gallery/photo1.jpg" alt="갤러리 사진 1">
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="images/gallery/photo2.jpg" alt="갤러리 사진 2">
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="images/gallery/photo3.jpg" alt="갤러리 사진 3">
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="images/gallery/photo4.jpg" alt="갤러리 사진 4">
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="images/gallery/photo5.jpg" alt="갤러리 사진 5">
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="images/gallery/photo6.jpg" alt="갤러리 사진 6">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 사진 뷰어 모달 -->
+    <div class="photo-viewer" id="photoViewer">
+        <button class="viewer-close" id="viewerClose">&times;</button>
+        <button class="viewer-nav viewer-prev" id="viewerPrev">&#10094;</button>
+        <button class="viewer-nav viewer-next" id="viewerNext">&#10095;</button>
+        <div class="viewer-content">
+            <img src="" alt="확대 이미지" id="viewerImage">
+        </div>
+        <div class="viewer-counter">
+            <span id="currentIndex">1</span> / <span id="totalCount">6</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
