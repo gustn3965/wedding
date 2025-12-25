@@ -25,6 +25,27 @@ function copyAccount(account) {
     });
 }
 
+// Download ICS for Apple Calendar
+function downloadICS() {
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+BEGIN:VEVENT
+DTSTART:20260509T133000
+DTEND:20260509T153000
+SUMMARY:박현수 ♥ 신하정 결혼식
+DESCRIPTION:박현수 ♥ 신하정 결혼식에 초대합니다.
+LOCATION:수원 메리빌리아, 경기 수원시 권선구 세화로 116 2층
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'wedding.ics';
+    link.click();
+}
+
 // Photo Viewer
 (function() {
     'use strict';

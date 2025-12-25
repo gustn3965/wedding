@@ -93,6 +93,45 @@ body {
     color: #666;
 }
 
+.calendar-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 1.4s;
+}
+
+.calendar-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.google-cal {
+    background-color: rgba(255,255,255,0.9);
+    color: #555;
+}
+
+.google-cal:hover {
+    background-color: #fff;
+}
+
+.apple-cal {
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+}
+
+.apple-cal:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
 .scroll-indicator {
     position: absolute;
     bottom: 30px;
