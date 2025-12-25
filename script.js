@@ -4,7 +4,20 @@ function copyAddress() {
     navigator.clipboard.writeText(address).then(() => {
         const toast = document.getElementById('copyToast');
         toast.classList.remove('show');
-        void toast.offsetWidth; // trigger reflow
+        void toast.offsetWidth;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    });
+}
+
+// Copy Account
+function copyAccount(account) {
+    navigator.clipboard.writeText(account).then(() => {
+        const toast = document.getElementById('accountToast');
+        toast.classList.remove('show');
+        void toast.offsetWidth;
         toast.classList.add('show');
         setTimeout(() => {
             toast.classList.remove('show');
@@ -243,6 +256,17 @@ function copyAddress() {
         if (locationTitle) locationTitle.classList.add('fade-in');
         if (locationInfo) locationInfo.classList.add('fade-in');
         if (locationMap) locationMap.classList.add('scale-in');
+
+        const accountTitle = document.querySelector('.account-title');
+        const accountSubtitle = document.querySelector('.account-subtitle');
+        const accountCards = document.querySelectorAll('.account-card');
+
+        if (accountTitle) accountTitle.classList.add('fade-in');
+        if (accountSubtitle) accountSubtitle.classList.add('fade-in');
+        accountCards.forEach((card, index) => {
+            card.classList.add('fade-in');
+            card.style.transitionDelay = (index * 0.2) + 's';
+        });
 
         galleryItems.forEach((item, index) => {
             item.classList.add('scale-in');

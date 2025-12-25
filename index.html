@@ -125,6 +125,28 @@
                 <img src="images/location/location1.jpeg" alt="약도" class="location-map">
             </div>
         </section>
+
+        <!-- 다섯번째 섹션: 축의금 -->
+        <section class="section section-account">
+            <h2 class="account-title">마음 전하실 곳</h2>
+            <p class="account-subtitle">축복의 마음을 전해주세요</p>
+
+            <div class="account-cards">
+                <div class="account-card">
+                    <p class="account-side">신랑측</p>
+                    <p class="account-name">박현수</p>
+                    <p class="account-info">국민은행 123456789</p>
+                    <button class="copy-btn" onclick="copyAccount('국민은행 123456789')">계좌 복사</button>
+                </div>
+                <div class="account-card">
+                    <p class="account-side">신부측</p>
+                    <p class="account-name">신하정</p>
+                    <p class="account-info">신한은행 987654321</p>
+                    <button class="copy-btn" onclick="copyAccount('신한은행 987654321')">계좌 복사</button>
+                </div>
+            </div>
+            <span class="copy-toast" id="accountToast">복사되었습니다!</span>
+        </section>
     </main>
 
     <!-- 사진 뷰어 모달 -->
