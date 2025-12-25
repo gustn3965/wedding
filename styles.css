@@ -679,40 +679,94 @@ body {
     margin-bottom: 30px;
 }
 
-.account-cards {
+.account-accordions {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     max-width: 400px;
     margin: 0 auto;
 }
 
-.account-card {
+.account-accordion {
     background-color: #fff;
     border-radius: 12px;
-    padding: 25px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    text-align: center;
+    overflow: hidden;
 }
 
-.account-side {
-    font-size: 12px;
+.accordion-header {
+    width: 100%;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c2c2c;
+    transition: background-color 0.2s;
+}
+
+.accordion-header:hover {
+    background-color: #f9f9f9;
+}
+
+.accordion-icon {
+    font-size: 20px;
+    font-weight: 300;
     color: #999;
-    margin-bottom: 8px;
+    transition: transform 0.3s;
+}
+
+.account-accordion.active .accordion-icon {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.account-accordion.active .accordion-content {
+    max-height: 500px;
+}
+
+.account-item {
+    padding: 15px 20px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.account-role {
+    font-size: 13px;
+    color: #999;
+    min-width: 40px;
 }
 
 .account-name {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     color: #2c2c2c;
-    margin-bottom: 10px;
+    min-width: 55px;
 }
 
 .account-info {
-    font-size: 15px;
+    font-size: 14px;
     color: #555;
-    margin-bottom: 15px;
-    letter-spacing: 0.5px;
+    flex: 1;
+    letter-spacing: 0.3px;
+}
+
+.account-item .copy-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    flex-shrink: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -720,12 +774,13 @@ body {
         font-size: 26px;
     }
 
-    .account-cards {
+    .account-accordions {
         flex-direction: row;
-        max-width: 600px;
+        max-width: 700px;
+        gap: 20px;
     }
 
-    .account-card {
+    .account-accordion {
         flex: 1;
     }
 }

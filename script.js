@@ -35,6 +35,12 @@ function copyAccount(account) {
     });
 }
 
+// Toggle Accordion
+function toggleAccordion(button) {
+    const accordion = button.parentElement;
+    accordion.classList.toggle('active');
+}
+
 // Guestbook
 const GUESTBOOK_API = 'https://script.google.com/macros/s/AKfycbx288KVdWPpllExx5FhOZwIYHEmyhQGuaWI7CPw01UhUnZOPVHIYZeMpZK33Jrp3KMGQQ/exec';
 const ITEMS_PER_PAGE = 5;

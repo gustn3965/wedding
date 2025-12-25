@@ -159,18 +159,58 @@
             <h2 class="account-title">마음 전하실 곳</h2>
             <p class="account-subtitle">축복의 마음을 전해주세요</p>
 
-            <div class="account-cards">
-                <div class="account-card">
-                    <p class="account-side">신랑측</p>
-                    <p class="account-name">박현수</p>
-                    <p class="account-info">국민은행 123456789</p>
-                    <button class="copy-btn" onclick="copyAccount('국민은행 123456789')">계좌 복사</button>
+            <div class="account-accordions">
+                <div class="account-accordion">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>신랑측 계좌번호</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="account-item">
+                            <p class="account-role">신랑</p>
+                            <p class="account-name">박현수</p>
+                            <p class="account-info">국민은행 123456789</p>
+                            <button class="copy-btn" onclick="copyAccount('국민은행 123456789')">복사</button>
+                        </div>
+                        <div class="account-item">
+                            <p class="account-role">아버지</p>
+                            <p class="account-name">박성환</p>
+                            <p class="account-info">국민은행 111111111</p>
+                            <button class="copy-btn" onclick="copyAccount('국민은행 111111111')">복사</button>
+                        </div>
+                        <div class="account-item">
+                            <p class="account-role">어머니</p>
+                            <p class="account-name">김중자</p>
+                            <p class="account-info">국민은행 222222222</p>
+                            <button class="copy-btn" onclick="copyAccount('국민은행 222222222')">복사</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="account-card">
-                    <p class="account-side">신부측</p>
-                    <p class="account-name">신하정</p>
-                    <p class="account-info">신한은행 987654321</p>
-                    <button class="copy-btn" onclick="copyAccount('신한은행 987654321')">계좌 복사</button>
+                <div class="account-accordion">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>신부측 계좌번호</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="account-item">
+                            <p class="account-role">신부</p>
+                            <p class="account-name">신하정</p>
+                            <p class="account-info">신한은행 987654321</p>
+                            <button class="copy-btn" onclick="copyAccount('신한은행 987654321')">복사</button>
+                        </div>
+                        <div class="account-item">
+                            <p class="account-role">아버지</p>
+                            <p class="account-name">신기열</p>
+                            <p class="account-info">신한은행 333333333</p>
+                            <button class="copy-btn" onclick="copyAccount('신한은행 333333333')">복사</button>
+                        </div>
+                        <div class="account-item">
+                            <p class="account-role">어머니</p>
+                            <p class="account-name">박영희</p>
+                            <p class="account-info">신한은행 444444444</p>
+                            <button class="copy-btn" onclick="copyAccount('신한은행 444444444')">복사</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <span class="copy-toast" id="accountToast">복사되었습니다!</span>
