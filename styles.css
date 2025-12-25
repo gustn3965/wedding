@@ -899,6 +899,26 @@ body {
     word-break: break-word;
 }
 
+.guestbook-delete-btn {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    padding: 5px 12px;
+    font-size: 11px;
+    color: #999;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Noto Serif KR', serif;
+    transition: all 0.2s;
+}
+
+.guestbook-delete-btn:hover {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
 .guestbook-empty {
     text-align: center;
     color: #888;

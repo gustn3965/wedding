@@ -42,7 +42,7 @@ function toggleAccordion(button) {
 }
 
 // Guestbook
-const GUESTBOOK_API = 'https://script.google.com/macros/s/AKfycbx288KVdWPpllExx5FhOZwIYHEmyhQGuaWI7CPw01UhUnZOPVHIYZeMpZK33Jrp3KMGQQ/exec';
+const GUESTBOOK_API = 'https://script.google.com/macros/s/AKfycbyLDREmk9Y0fIzvPA5ITLYWdZ-Tc5ROuZsfA9ON1VHLC-12KBblrLvLXr0lUGklMsh19A/exec';
 const ITEMS_PER_PAGE = 5;
 let allGuestbookData = [];
 let currentPage = 1;
@@ -85,6 +85,7 @@ function renderGuestbook() {
                 <span class="guestbook-item-date">${escapeHtml(item.date)}</span>
             </div>
             <p class="guestbook-item-message">${escapeHtml(item.message)}</p>
+            <button class="guestbook-delete-btn" onclick="deleteGuestbook(${item.id})">삭제</button>
         </div>
     `).join('');
 
@@ -114,14 +115,16 @@ function changePage(page) {
 // Submit guestbook entry
 function submitGuestbook() {
     const nameEl = document.getElementById('guestName');
+    const passwordEl = document.getElementById('guestPassword');
     const messageEl = document.getElementById('guestMessage');
     const submitBtn = document.querySelector('.guestbook-submit');
 
     const name = nameEl.value.trim();
+    const password = passwordEl.value.trim();
     const message = messageEl.value.trim();
 
-    if (!name || !message) {
-        alert('이름과 메시지를 모두 입력해주세요.');
+    if (!name || !password || !message) {
+        alert('이름, 비밀번호, 메시지를 모두 입력해주세요.');
         return;
     }
 
@@ -134,10 +137,11 @@ function submitGuestbook() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, message })
+        body: JSON.stringify({ name, password, message })
     })
     .then(() => {
         nameEl.value = '';
+        passwordEl.value = '';
         messageEl.value = '';
         alert('메시지가 등록되었습니다!');
         loadGuestbook();
@@ -148,6 +152,39 @@ function submitGuestbook() {
     .finally(() => {
         submitBtn.disabled = false;
         submitBtn.textContent = '등록하기';
+    });
+}
+
+// Delete guestbook entry
+function deleteGuestbook(id) {
+    const password = prompt('삭제하려면 비밀번호를 입력하세요:');
+    if (password === null) return; // 취소 클릭
+
+    if (!password.trim()) {
+        alert('비밀번호를 입력해주세요.');
+        return;
+    }
+
+    fetch(GUESTBOOK_API, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action: 'delete', id, password: password.trim() })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('삭제되었습니다.');
+            loadGuestbook();
+        } else if (data.error === 'wrong_password') {
+            alert('비밀번호가 일치하지 않습니다.');
+        } else {
+            alert('삭제에 실패했습니다.');
+        }
+    })
+    .catch(err => {
+        alert('삭제에 실패했습니다. 다시 시도해주세요.');
     });
 }
 
