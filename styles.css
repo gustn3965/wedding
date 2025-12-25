@@ -432,8 +432,15 @@ body {
     user-select: all;
 }
 
-.copy-btn {
-    margin-top: 15px;
+.location-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.copy-btn, .map-btn {
     padding: 10px 20px;
     background-color: #f5f0eb;
     border: 1px solid #ddd;
@@ -443,14 +450,35 @@ body {
     color: #555;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    text-decoration: none;
 }
 
-.copy-btn:hover {
+.copy-btn:hover, .map-btn:hover {
     background-color: #ebe5df;
 }
 
-.copy-btn:active {
+.copy-btn:active, .map-btn:active {
     transform: scale(0.98);
+}
+
+.kakao-btn {
+    background-color: #fee500;
+    border-color: #fee500;
+    color: #3c1e1e;
+}
+
+.kakao-btn:hover {
+    background-color: #fdd800;
+}
+
+.naver-btn {
+    background-color: #03c75a;
+    border-color: #03c75a;
+    color: #fff;
+}
+
+.naver-btn:hover {
+    background-color: #02b350;
 }
 
 .copy-toast {

@@ -114,7 +114,11 @@
             <div class="location-info">
                 <p class="location-name">수원 메리빌리아</p>
                 <p class="location-address" id="addressText" onclick="copyAddress()">경기 수원시 권선구 세화로 116 2층</p>
-                <button class="copy-btn" onclick="copyAddress()">주소 복사</button>
+                <div class="location-buttons">
+                    <button class="copy-btn" onclick="copyAddress()">주소 복사</button>
+                    <a href="https://kko.to/j3aw1i312d" target="_blank" class="map-btn kakao-btn">카카오맵</a>
+                    <a href="https://naver.me/F6nTMSJi" target="_blank" class="map-btn naver-btn">네이버지도</a>
+                </div>
                 <span class="copy-toast" id="copyToast">복사되었습니다!</span>
             </div>
             <div class="location-map-container">
