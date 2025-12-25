@@ -172,12 +172,19 @@ END:VCALENDAR`;
 
     let currentIndex = 0;
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
     let galleryImages = [];
+    let isDragging = false;
+    let dragStartY = 0;
+    let currentTranslateY = 0;
 
     // DOM Elements
     const photoViewer = document.getElementById('photoViewer');
     const viewerImage = document.getElementById('viewerImage');
+    const viewerContent = document.getElementById('viewerContent');
+    const viewerLoading = document.getElementById('viewerLoading');
     const viewerClose = document.getElementById('viewerClose');
     const viewerPrev = document.getElementById('viewerPrev');
     const viewerNext = document.getElementById('viewerNext');
@@ -191,7 +198,6 @@ END:VCALENDAR`;
         galleryImages = Array.from(galleryItems).map(item => {
             const original = item.dataset.original;
             if (original) {
-                // Convert relative path to absolute URL
                 const a = document.createElement('a');
                 a.href = original;
                 return a.href;
@@ -207,27 +213,38 @@ END:VCALENDAR`;
 
         // Viewer controls
         viewerClose.addEventListener('click', closeViewer);
-        viewerPrev.addEventListener('click', showPrevImage);
-        viewerNext.addEventListener('click', showNextImage);
+        viewerPrev.addEventListener('click', () => navigateImage('prev'));
+        viewerNext.addEventListener('click', () => navigateImage('next'));
 
         // Keyboard navigation
         document.addEventListener('keydown', handleKeydown);
 
-        // Touch events for swipe
-        photoViewer.addEventListener('touchstart', handleTouchStart, { passive: true });
-        photoViewer.addEventListener('touchend', handleTouchEnd, { passive: true });
+        // Touch events
+        viewerContent.addEventListener('touchstart', handleTouchStart, { passive: true });
+        viewerContent.addEventListener('touchmove', handleTouchMove, { passive: false });
+        viewerContent.addEventListener('touchend', handleTouchEnd);
 
-        // Close on background click
-        photoViewer.addEventListener('click', (e) => {
-            if (e.target === photoViewer || e.target.classList.contains('viewer-content')) {
-                closeViewer();
-            }
-        });
+        // Image load event
+        viewerImage.addEventListener('load', hideLoading);
+        viewerImage.addEventListener('error', hideLoading);
+    }
+
+    // Show loading spinner
+    function showLoading() {
+        viewerLoading.classList.remove('hidden');
+        viewerImage.style.opacity = '0';
+    }
+
+    // Hide loading spinner
+    function hideLoading() {
+        viewerLoading.classList.add('hidden');
+        viewerImage.style.opacity = '1';
     }
 
     // Open photo viewer
     function openViewer(index) {
         currentIndex = index;
+        showLoading();
         updateImage();
         photoViewer.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -237,6 +254,7 @@ END:VCALENDAR`;
     function closeViewer() {
         photoViewer.classList.remove('active');
         document.body.style.overflow = '';
+        viewerImage.style.transform = '';
     }
 
     // Update displayed image
@@ -245,16 +263,20 @@ END:VCALENDAR`;
         currentIndexEl.textContent = currentIndex + 1;
     }
 
-    // Show previous image
-    function showPrevImage() {
-        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-        updateImage();
-    }
+    // Navigate with animation
+    function navigateImage(direction) {
+        viewerImage.classList.add('fade-out');
 
-    // Show next image
-    function showNextImage() {
-        currentIndex = (currentIndex + 1) % galleryImages.length;
-        updateImage();
+        setTimeout(() => {
+            showLoading();
+            if (direction === 'prev') {
+                currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            } else {
+                currentIndex = (currentIndex + 1) % galleryImages.length;
+            }
+            updateImage();
+            viewerImage.classList.remove('fade-out');
+        }, 200);
     }
 
     // Keyboard navigation
@@ -266,38 +288,68 @@ END:VCALENDAR`;
                 closeViewer();
                 break;
             case 'ArrowLeft':
-                showPrevImage();
+                navigateImage('prev');
                 break;
             case 'ArrowRight':
-                showNextImage();
+                navigateImage('next');
                 break;
         }
     }
 
     // Touch start handler
     function handleTouchStart(e) {
-        touchStartX = e.changedTouches[0].screenX;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isDragging = true;
+        viewerImage.classList.add('dragging');
+    }
+
+    // Touch move handler
+    function handleTouchMove(e) {
+        if (!isDragging) return;
+
+        const currentY = e.touches[0].clientY;
+        const diffY = currentY - touchStartY;
+
+        // Only allow downward drag
+        if (diffY > 0) {
+            e.preventDefault();
+            currentTranslateY = diffY;
+            viewerImage.style.transform = `translateY(${diffY}px)`;
+            photoViewer.style.backgroundColor = `rgba(0, 0, 0, ${Math.max(0.3, 0.95 - diffY / 500)})`;
+        }
     }
 
     // Touch end handler
     function handleTouchEnd(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }
+        isDragging = false;
+        viewerImage.classList.remove('dragging');
 
-    // Handle swipe gesture
-    function handleSwipe() {
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchEndY - touchStartY;
+
+        // Swipe down to close
+        if (diffY > 100 && Math.abs(diffX) < 50) {
+            closeViewer();
+            photoViewer.style.backgroundColor = '';
+            return;
+        }
+
+        // Reset position if not closing
+        viewerImage.style.transform = '';
+        photoViewer.style.backgroundColor = '';
+
+        // Horizontal swipe for navigation
         const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-
-        if (Math.abs(diff) < swipeThreshold) return;
-
-        if (diff > 0) {
-            // Swipe left - next image
-            showNextImage();
-        } else {
-            // Swipe right - previous image
-            showPrevImage();
+        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffY) < 100) {
+            if (diffX > 0) {
+                navigateImage('next');
+            } else {
+                navigateImage('prev');
+            }
         }
     }
 

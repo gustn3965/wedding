@@ -11,7 +11,12 @@
       "Bash(do cp \"$file\" \"thumbnails/$file\")",
       "Bash(sips:*)",
       "Bash(done)",
-      "Bash(du:*)"
+      "Bash(du:*)",
+      "Bash(for file in KJJ*.jpg SON*.jpg)",
+      "Bash(do sips -Z 1800 -s format jpeg -s formatOptions 60 $file --out optimized/$file)",
+      "Bash(ls:*)",
+      "Bash(for file in KJJ02726.jpg KJJ03185.jpg KJJ03656.jpg KJJ04688.jpg KJJ04730.jpg KJJ04962.jpg KJJ05008.jpg KJJ05070.jpg KJJ05195.jpg KJJ05226.jpg KJJ05263.jpg KJJ05385.jpg KJJ05569.jpg KJJ05665.jpg SON08265.jpg SON08333.jpg SON08494.jpg SON08674.jpg SON08723.jpg SON08731.jpg SON08783.jpg SON08795.jpg)",
+      "Bash(for file in optimized/*.jpg)"
     ]
   }
 }
