@@ -212,11 +212,17 @@
         const galleryTitle = document.querySelector('.gallery-title');
         const gallerySubtitle = document.querySelector('.gallery-subtitle');
         const galleryItems = document.querySelectorAll('.gallery-item');
+        const locationTitle = document.querySelector('.location-title');
+        const locationInfo = document.querySelector('.location-info');
+        const locationMap = document.querySelector('.location-map-container');
 
         if (storyImage) storyImage.classList.add('fade-in-left');
         if (storyText) storyText.classList.add('fade-in-right');
         if (galleryTitle) galleryTitle.classList.add('fade-in');
         if (gallerySubtitle) gallerySubtitle.classList.add('fade-in');
+        if (locationTitle) locationTitle.classList.add('fade-in');
+        if (locationInfo) locationInfo.classList.add('fade-in');
+        if (locationMap) locationMap.classList.add('scale-in');
 
         galleryItems.forEach((item, index) => {
             item.classList.add('scale-in');

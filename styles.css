@@ -387,6 +387,70 @@ body {
     }
 }
 
+/* Location Section */
+.section-location {
+    background-color: #fff;
+    padding: 60px 20px;
+}
+
+.location-title {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #2c2c2c;
+    text-align: center;
+}
+
+.location-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.location-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #2c2c2c;
+    margin-bottom: 10px;
+}
+
+.location-address {
+    font-size: 14px;
+    color: #666;
+}
+
+.location-map-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.location-map {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .location-title {
+        font-size: 26px;
+    }
+
+    .location-name {
+        font-size: 20px;
+    }
+
+    .location-address {
+        font-size: 16px;
+    }
+
+    .location-map-container {
+        max-width: 600px;
+    }
+}
+
 /* Petal Animation */
 .petals-container {
     position: fixed;
