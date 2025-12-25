@@ -2,33 +2,10 @@
 (function() {
     'use strict';
 
-    // Gallery images array
-    const galleryImages = [
-        'images/sources/KJJ03185.jpg',
-        'images/sources/KJJ03656.jpg',
-        'images/sources/KJJ04688.jpg',
-        'images/sources/KJJ04730.jpg',
-        'images/sources/KJJ04962.jpg',
-        'images/sources/KJJ05008.jpg',
-        'images/sources/KJJ05070.jpg',
-        'images/sources/KJJ05195.jpg',
-        'images/sources/KJJ05226.jpg',
-        'images/sources/KJJ05263.jpg',
-        'images/sources/KJJ05385.jpg',
-        'images/sources/KJJ05569.jpg',
-        'images/sources/KJJ05665.jpg',
-        'images/sources/SON08265.jpg',
-        'images/sources/SON08333.jpg',
-        'images/sources/SON08494.jpg',
-        'images/sources/SON08674.jpg',
-        'images/sources/SON08723.jpg',
-        'images/sources/SON08731.jpg',
-        'images/sources/SON08783.jpg'
-    ];
-
     let currentIndex = 0;
     let touchStartX = 0;
     let touchEndX = 0;
+    let galleryImages = [];
 
     // DOM Elements
     const photoViewer = document.getElementById('photoViewer');
@@ -42,6 +19,8 @@
 
     // Initialize
     function init() {
+        // Get image sources directly from HTML
+        galleryImages = Array.from(galleryItems).map(item => item.querySelector('img').src);
         totalCountEl.textContent = galleryImages.length;
 
         // Gallery item click events
