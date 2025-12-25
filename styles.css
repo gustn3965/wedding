@@ -93,6 +93,29 @@ body {
     color: #666;
 }
 
+.parents-info {
+    margin: 15px 0;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 1s;
+}
+
+.parent-line {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+    line-height: 1.6;
+}
+
+.parent-names {
+    color: #777;
+}
+
+.child-name {
+    font-weight: 500;
+    color: #2c2c2c;
+}
+
 .calendar-buttons {
     display: flex;
     gap: 10px;
