@@ -1,3 +1,18 @@
+// Fix mobile viewport height (prevent address bar resize issues)
+(function() {
+    const heroContainer = document.querySelector('.hero-image-container');
+    if (heroContainer) {
+        const setFixedHeight = () => {
+            heroContainer.style.height = heroContainer.offsetHeight + 'px';
+        };
+        if (document.readyState === 'complete') {
+            setFixedHeight();
+        } else {
+            window.addEventListener('load', setFixedHeight);
+        }
+    }
+})();
+
 // Curtain Intro
 document.addEventListener('DOMContentLoaded', function() {
     const curtain = document.getElementById('curtainOverlay');
