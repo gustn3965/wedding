@@ -656,6 +656,9 @@ body {
 .section-location {
     background-color: #fff;
     padding: 60px 20px;
+    min-height: auto !important;
+    height: auto;
+    justify-content: flex-start;
 }
 
 .location-title {
@@ -738,6 +741,9 @@ body {
 .section-account {
     background-color: #f8f7f5;
     padding: 35px 20px;
+    min-height: auto !important;
+    height: auto;
+    justify-content: flex-start;
 }
 
 .account-title {
