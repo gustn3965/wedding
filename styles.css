@@ -352,6 +352,7 @@ body {
 .story-text {
     text-align: center;
     max-width: 400px;
+    margin-bottom: 30px;
 }
 
 .story-text h2 {
@@ -365,6 +366,13 @@ body {
     font-size: 15px;
     color: #555;
     line-height: 2;
+}
+
+.story-feature-image {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 40px;
+    border-radius: 8px;
 }
 
 /* Gallery Section */
@@ -603,7 +611,8 @@ body {
         display: none;
     }
 
-    .story-image-container {
+    .story-image-container,
+    .story-feature-image {
         max-width: 600px;
     }
 
