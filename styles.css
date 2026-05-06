@@ -829,6 +829,7 @@ body {
     font-size: 13px;
     color: #999;
     min-width: 40px;
+    white-space: nowrap;
 }
 
 .account-name {
@@ -843,6 +844,14 @@ body {
     color: #555;
     flex: 1;
     letter-spacing: 0.3px;
+}
+
+.account-holder {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+    letter-spacing: 0;
 }
 
 .account-item .copy-btn {
